@@ -4,6 +4,9 @@ on:
     push:
         branches:
             - main
+        paths-ignore:
+            - readme.md
+
     
     workflow_dispatch:
 
@@ -20,6 +23,12 @@ jobs:
               with:
                 node-version: 18
             
+            - name: Cache Dependencies
+              uses: actions/cache@v4
+              with:
+                path : ~/ .npm
+                key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+            
             - name: Install Dependencies
               run: npm ci 
               # we are usin npm ci because now we have package-lock file in the root directory
@@ -33,10 +42,28 @@ jobs:
             - name: Job 2 worked!
               run: echo "Hey this is working, that is awesome!"
 
-    test3:
+    Deployment:
         runs-on: ubuntu-latest
-        needs: [test1, test2]
         steps:
-            - name: This Test 3 will work after successfully run of test 2
-              run: echo "All the jobs were completed, Bravo this worked too!!"
+            - name: Get Code
+              uses: actions/checkout@v4
+            
+            - name: Install Node js
+              uses: actions/setup-node@v4
+              with:
+                node-version: 18
+            
+            - name: Cache Dependencies
+            # Caching the Dependencies from the Earlier test1
+              uses: actions/cache@v4
+              with:
+                path: ~/ .npm
+                key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+            
+            - name: Install Dependencies
+              run: npm ci
+            
+            - name: Everthing Worked
+              run: echo "Everthing worked!"
+       
 
