@@ -1,4 +1,4 @@
-name: Deploy
+name: Deploy Version 1
 on: [ push, workflow_dispatch ]
 
 jobs:
@@ -16,7 +16,7 @@ jobs:
 
             - name: "Install Node JS"
             #we have to specify the verion for node as well **
-              uses: actions/setup-node@4
+              uses: actions/setup-node@v4
               with:
                 node-version: 18
 
