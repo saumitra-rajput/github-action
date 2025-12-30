@@ -1,29 +1,28 @@
-## Installing Node.js on my local machine.
-I do not have node.js installed on my machine.
-I was getting error
-```
-$ npm init
-bash: npm: command not found
-```
-so i had to install via cmd/powershell using below command
-```
-winget install OpenJS.NodeJS.LTS
+# GitHub Actions CI/CD Demo
 
-node -v
-npm -v
-```
+This repository demonstrates a basic CI/CD pipeline using GitHub Actions.
 
-Then restart the terminal check the version.
+## 🌐 Live Demo
+click here [View live site](https://saumitra-rajput.github.io/github-action/) 
+
+or click blow:
+
+https://saumitra-rajput.github.io/github-action/
+
+## 🛠️ Tech Used
+- GitHub Actions
+- GitHub Pages
+- HTML / CSS
+- Node.js
+
+## 📦 Pipeline
+- Test
+- Build
+- Deploy
 
 
 
-Quick way to get the package-lock.json file in your root directory,
 
-Check
-```
-npm -v
-```
-then write below command this will auto generate a package-lock.json file.
-```
-npm install
-```
+
+
+
