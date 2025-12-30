@@ -14,3 +14,16 @@ npm -v
 ```
 
 Then restart the terminal check the version.
+
+
+
+Quick way to get the package-lock.json file in your root directory,
+
+Check
+```
+npm -v
+```
+then write below command this will auto generate a package-lock.json file.
+```
+npm install
+```
