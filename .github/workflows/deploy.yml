@@ -9,7 +9,7 @@ jobs:
               run: |
                 echo "Hello world!"
                 echo "${{github}}"
-                 git clone https://github.com${{github.repository}}.git
+                 git clone https://github.com/${{github.repository}}.git
 
             # - name: "Getting code from GH repo with GHaction marketplace"
             #   uses: actions/checkout@v4
