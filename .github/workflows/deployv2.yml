@@ -3,7 +3,7 @@ name: Deploy Version 2
 on: [workflow_dispatch, push]
 
 jobs:
-    test:
+    test1:
         runs-on: ubuntu-latest
 
         steps:
@@ -23,14 +23,15 @@ jobs:
               run: npm run test
     test2:
         runs-on: ubuntu-latest
-        needs: test
+        needs: test1
         steps:
             - name: Job 2 worked!
               run: echo "Hey this is working, that is awesome!"
 
     test3:
         runs-on: ubuntu-latest
-        needs: [test]
+        needs: [test1, test2]
         steps:
             - name: This Test 3 will work after successfully run of test 2
               run: echo "All the jobs were completed, Bravo this worked too!!"
+              
