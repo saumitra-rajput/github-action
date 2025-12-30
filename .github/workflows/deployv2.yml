@@ -30,7 +30,7 @@ jobs:
 
     test3:
         runs-on: ubuntu-latest
-        needs: [test, test2]
+        needs: [test]
         steps:
             - name: This Test 3 will work after successfully run of test 2
               run: echo "All the jobs were completed, Bravo this worked too!!"
