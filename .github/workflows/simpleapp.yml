@@ -1,4 +1,4 @@
-name: Simple APP
+name: GitHub Actions CI/CD Demo
 
 on: 
     push:
