@@ -5,7 +5,7 @@ This repository demonstrates a basic CI/CD pipeline using GitHub Actions.
 ## 🌐 Live Demo
 click here [View live site](https://saumitra-rajput.github.io/github-action/) 
 
-or click blow:
+or click below:
 
 https://saumitra-rajput.github.io/github-action/
 
