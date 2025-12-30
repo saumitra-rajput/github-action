@@ -1,0 +1,22 @@
+name: Deploy Version 2
+
+on: workflow_dispatch
+
+jobs:
+    test:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Getting the code from GH Repo
+              uses: actions/checkout@v4
+
+            - name: Install Node js
+              uses: actions/setup-node@v4
+              with:
+                node-version: 18
+            
+            - name: Install Dependencies
+              run: npm ci 
+              # we are usin npm ci because now we have package-lock file in the root directory
+
+            - name: Run the test
+              run: npm run test
