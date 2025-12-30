@@ -8,7 +8,7 @@
   "main": "index.js",
   "scripts": {
   "test": "echo \"No tests\" && exit 0",
-  "build": "mkdir -p dist && cp index.html dist/index.html"
+  "build": "mkdir -p dist && cp index.html style.css dist/"
 
    }
 
