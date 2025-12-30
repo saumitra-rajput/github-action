@@ -20,3 +20,8 @@ jobs:
 
             - name: Run the test
               run: npm run test
+    test2:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Job 2 worked!
+              run: echo "Hey this is working, that is awesome!"
