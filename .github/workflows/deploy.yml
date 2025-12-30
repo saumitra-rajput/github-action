@@ -11,7 +11,7 @@ jobs:
                 echo "${{github}}"
                  git clone https://github.com/${{github.repository}}.git
 
-            # - name: "Getting code from GH repo with GHaction marketplace"
+            # - name: "Getting code from GH repo with GHaction marketplace"g
             #   uses: actions/checkout@v4
 
 

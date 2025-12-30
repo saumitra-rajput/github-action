@@ -1,0 +1,32 @@
+name: Deploy
+on: [ push, workflow_dispatch ]
+
+jobs:
+    test:
+        runs-on: ubuntu-latest
+        steps:
+            # - name: "Getting code from GH repo old school method"
+            #   run: |
+            #     echo "Hello world!"
+            #     echo "${{github}}"
+            #     git clone https://github.com/${{github.repository}}.git
+            
+            - name: "Clone repo using GH market"
+              uses: actions/checkout@v4
+
+            - name: "Install Node JS"
+            #we have to specify the verion for node as well **
+              uses: actions/setup-node@4
+              with:
+                node-version: 18
+
+            - name: "Priting the version of Installed Nodejs on workflow vm"
+              run: node --version
+
+            - name: "Install Dependencies"
+              run: npm install
+            
+            - name: "Run test"
+              run: npm run test
+
+
