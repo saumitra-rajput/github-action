@@ -1,6 +1,11 @@
 name: Deploy Version 2
 
-on: [workflow_dispatch, push]
+on: 
+    push:
+        branches:
+            - main
+    
+    workflow_dispatch:
 
 jobs:
     test1:
@@ -34,4 +39,4 @@ jobs:
         steps:
             - name: This Test 3 will work after successfully run of test 2
               run: echo "All the jobs were completed, Bravo this worked too!!"
-              
+
