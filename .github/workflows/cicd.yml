@@ -1,6 +1,9 @@
 name: my-CI-CD
 
-on: 
+on:
+  push: 
+   branches:
+   - dev
   workflow_dispatch:
 
 jobs: 
