@@ -1,11 +1,15 @@
 name: my-CI-CD
 
 on:
-  push: 
-   branches:
-   - dev
   workflow_dispatch:
-
+    inputs:
+      environments:
+        description: Below are the avaiable environment
+        default: dev
+        type: choice
+        options:
+          - dev
+          - main
 jobs: 
   code:
     runs-on: ubuntu-latest
