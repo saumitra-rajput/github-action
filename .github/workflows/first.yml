@@ -1,0 +1,19 @@
+name: greet
+
+on:
+  push:
+    branches: 
+      - dev
+
+jobs:
+
+  greet:
+    runs-on: ubuntu-latest
+    steps:
+      - name: greet 
+        runs: echo "hello Jarvis!"
+
+    steps:
+      - name: say hello to Runner
+        runs: echo "Hey runner ${USER}"
+
