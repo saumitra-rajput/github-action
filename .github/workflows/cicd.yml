@@ -1,0 +1,27 @@
+name: my-CI-CD
+
+on: 
+  workflow_dispatch:
+
+jobs: 
+  code:
+    runs-on: ubuntu-latest
+    steps:
+      - name: This is code stage
+        run: echo "Code in progress"
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: This is build stage
+        run: echo "This is Build stage"
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: This is Test stage
+        run: echo "This is Test stage"
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: This is Deploy stage
+        run: echo "This is deploy stage"
+  
