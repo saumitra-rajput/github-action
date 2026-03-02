@@ -1,5 +1,7 @@
+# Name of the workflow
 name: my-CI-CD
 
+# requirement for runner
 on:
   workflow_dispatch:
     inputs:
@@ -10,25 +12,35 @@ on:
         options:
           - dev
           - main
+# jobs are define below
 jobs: 
+# first job name Code
   code:
     runs-on: ubuntu-latest
     steps:
       - name: This is code stage
         run: echo "Code in progress"
+        
+# second job name build
   build:
     needs: [code]
     runs-on: ubuntu-latest
     steps:
       - name: This is build stage
         run: echo "This is Build stage"
+        
+# third job name test
   test:
     needs: [build]
     runs-on: ubuntu-latest
     steps:
       - name: This is Test stage
         run: echo "This is Test stage"
+        
+# fourth job name deploy
+# apply if condifition in deploy
   deploy:
+    if: inputs.environments== 'main'
     needs: [build, test]
     runs-on: ubuntu-latest
     steps:
