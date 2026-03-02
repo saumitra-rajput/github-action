@@ -1,20 +1,11 @@
 name: WEBPAGE
 
-on:
+on: 
   push:
-    branches:
-      - main
+    branches: [main]
+    
     paths:
       - '**.html'
-
-  workflow_dispatch:
-    inputs:
-      environments:
-        description: "Choose the required branch"
-        type: choice
-        options:
-          - main
-          - dev
 
 permissions:
     pages: write      
@@ -43,5 +34,6 @@ jobs:
 
       - name: deploy page 
         uses: actions/deploy-pages@v4
+
 
 
