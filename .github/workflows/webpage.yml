@@ -1,0 +1,45 @@
+name: WEBPAGE
+
+on:
+  push:
+    branches:
+      - dev
+    paths:
+      - '**.html'
+
+  workflow_dispatch:
+    inputs:
+      environments:
+        description: "Choose the required branch"
+        type: choice
+        options:
+          - dev
+
+permissions:
+    pages: write      
+    id-token: write   
+    contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+  
+    steps:
+      - name: checkout GitHub code
+        uses: actions/checkout@v4
+
+      - name: setup GitHub pages
+        uses: actions/configure-pages@v4
+
+      - name: static code artifacts
+        uses: actions/upload-pages-artifacts@v4
+        with: 
+          path: "."
+
+      - name: deploy page 
+        uses: actions/deploy-pages@v4
+
