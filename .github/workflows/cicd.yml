@@ -1,49 +1,91 @@
-# Name of the workflow
-name: my-CI-CD
+# # Name of the workflow
+# name: my-CI-CD
 
-# requirement for runner
-on:
-  workflow_dispatch:
-    inputs:
-      environments:
-        description: Below are the avaiable environment
-        default: dev
-        type: choice
-        options:
-          - dev
-          - main
-# jobs are define below
-jobs: 
-# first job name Code
-  code:
-    runs-on: ubuntu-latest
-    steps:
-      - name: This is code stage
-        run: echo "Code in progress"
+# # requirement for runner
+# on:
+#   workflow_dispatch:
+#     inputs:
+#       environments:
+#         description: Below are the avaiable environment
+#         default: dev
+#         type: choice
+#         options:
+#           - dev
+#           - main
+# # jobs are define below
+# jobs: 
+# # first job name Code
+#   code:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: This is code stage
+#         run: echo "Code in progress"
         
-# second job name build
-  build:
-    needs: [code]
-    runs-on: ubuntu-latest
-    steps:
-      - name: This is build stage
-        run: echo "This is Build stage"
+# # second job name build
+#   build:
+#     needs: [code]
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: This is build stage
+#         run: echo "This is Build stage"
         
-# third job name test
-  test:
-    needs: [build]
-    runs-on: ubuntu-latest
-    steps:
-      - name: This is Test stage
-        run: echo "This is Test stage"
+# # third job name test
+#   test:
+#     needs: [build]
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: This is Test stage
+#         run: echo "This is Test stage"
         
 # fourth job name deploy
 # apply if condifition in deploy
-  deploy:
-    if: inputs.environments== 'main'
-    needs: [build, test]
+  # deploy:
+    # if: inputs.environments== 'main'
+    # needs: [build, test]
+    # runs-on: ubuntu-latest
+    # steps:
+    #   - name: This is Deploy stage
+    #     run: echo "This is deploy stage"
+
+
+# CODE, BUILD, TEST, DEPLOY revision
+
+name: cicd
+
+on:
+  workflow_dispatch: 
+    inputs:
+      environments: 
+        description: Please select the branch from the below options
+        default: main
+        type: choice
+        options:
+        - main
+jobs:
+  #code
+  code:
     runs-on: ubuntu-latest
     steps:
-      - name: This is Deploy stage
+      - name: This is code stage.
+        run: echo "This is code Stage"
+
+  #build
+  build: 
+    runs-on: ubuntu-latest
+    steps:
+      - name: This is build stage.
+        run: echo "This is build stage"
+
+  #test
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: This is test stage. 
+        run: echo "This is test stage"
+
+  #deploy
+  deploy:
+    runs-on: ubuntu-latest
+    steps: 
+      - name: This is deploy stage.
         run: echo "This is deploy stage"
-  
