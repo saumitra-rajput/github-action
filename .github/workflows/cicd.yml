@@ -79,7 +79,7 @@ jobs:
 
   #test
   test:
-    needs: [build]
+    needs: [code,build]
     runs-on: ubuntu-latest
     steps:
       - name: This is test stage. 
