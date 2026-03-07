@@ -4,14 +4,36 @@ on:
     branches:
       - main
 
+# Update `test.yml` to also:
+# 1. Print the current date and time
+# 2. Print the name of the branch that triggered the run (hint: GitHub provides this as a variable)
+# 3. List the files in the repo
+# 4. Print the runner's operating system
+
 jobs: 
   greeting:  
     runs-on: ubuntu-latest
     steps: 
       - name: Greet the user
         run: echo "Hello world!"
-      - name: Say bye
+      - name: Say bye to runner user using environment variables $USER
         run: echo "Goodbye!! runner is ${USER}"
+  datetime:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 1 Print the Date and time
+        run: date
+  branch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 2 print the Branch that trigger the workflow
+        run: echo "Branch that trigger the workflow is ${{ github.ref_name }}"
+      - name: copy the repo code here in runner using ghaction checkout
+        uses: actions/checkout@v4
+      - name: 3 list the files present in repo
+        run: ls -la
+      - name: 4 Runner's Operating system using GitHub varibale ${{ runner.os }}
+        run: echo "Runner OS is ${{ runner.os }}"
 
 
 
