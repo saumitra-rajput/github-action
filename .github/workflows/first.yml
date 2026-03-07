@@ -19,7 +19,7 @@ jobs:
       - name: Say bye to runner user using environment variables $USER
         run: echo "Goodbye!! runner is ${USER}"
   datetime:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latet
     steps:
       - name: 1 Print the Date and time
         run: date
