@@ -11,7 +11,7 @@ jobs:
       - name: Greet the user
         run: echo "Hello world!"
       - name: Say bye
-        run: echo "Goodbye!! ${USER}"
+        run: echo "Goodbye!! runner is ${USER}"
 
 
 
