@@ -1,13 +1,19 @@
-name: greet
-on:
-  push:
+name: test
+on: 
+  push: 
     branches:
-      - dev
-jobs:
-  greet:
+      - main
+
+jobs: 
+  greeting:  
     runs-on: ubuntu-latest
-    steps:
-      - name: greet
-        run: echo "hello Jarvis!"
-      - name: say hello to Runner
-        run: echo "Hey runner ${USER}"
+    steps: 
+      - name: Greet the user
+        run: echo "Hello world!"
+      - name: Say bye
+        run: echo "Goodbye!! ${USER}"
+
+
+
+
+    
