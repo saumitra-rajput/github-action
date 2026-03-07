@@ -71,6 +71,7 @@ jobs:
 
   #build
   build: 
+    needs: [code]
     runs-on: ubuntu-latest
     steps:
       - name: This is build stage.
@@ -78,6 +79,7 @@ jobs:
 
   #test
   test:
+    needs: [build]
     runs-on: ubuntu-latest
     steps:
       - name: This is test stage. 
@@ -85,6 +87,7 @@ jobs:
 
   #deploy
   deploy:
+    needs: [test]
     runs-on: ubuntu-latest
     steps: 
       - name: This is deploy stage.
