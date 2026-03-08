@@ -1,0 +1,26 @@
+name: Self Hosted Runner Test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test-runner:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Print Hostname
+        run: hostname
+
+      - name: Print Working Directory
+        run: pwd
+
+      - name: Create Test File
+        run: |
+          echo "Hello from self-hosted runner" > testfile.txt
+          ls -l
+
+      - name: Verify File Exists
+        run: ls -la
