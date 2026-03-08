@@ -13,6 +13,7 @@ jobs:
         # Added env DOCKERHUB_USER here because it was define in docker-compose.yml file 
         env:
             DOCKERHUB_USER: ${{ vars.DOCKERHUB_USER }}
+            DOCKER_TAG: ${{ github.sha }} # added docker tag in docker-compose file to pick specifc image. hence defined here
 
         runs-on: self-hosted
         steps:
