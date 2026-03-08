@@ -8,216 +8,140 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --bg:       #0b0c0f;
-      --surface:  #13151a;
-      --border:   #1e2128;
-      --accent:   #c8f135;
-      --muted:    #4a4f5c;
-      --text:     #e8eaf0;
-      --text-dim: #7a8090;
+      --bg: #0b0c0f; --surface: #13151a; --border: #1e2128;
+      --accent: #c8f135; --muted: #4a4f5c; --text: #e8eaf0; --text-dim: #7a8090;
     }
+    html, body { height: 100%; background: var(--bg); color: var(--text); font-family: 'DM Mono', monospace; overflow-x: hidden; }
 
-    html, body {
-      height: 100%;
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'DM Mono', monospace;
-      overflow-x: hidden;
-    }
-
-    /* ── noise grain overlay ── */
     body::before {
-      content: '';
-      position: fixed; inset: 0; z-index: 0;
+      content: ''; position: fixed; inset: 0; z-index: 0;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
       pointer-events: none;
     }
-
-    /* ── animated gradient blob ── */
     .blob {
-      position: fixed;
-      width: 600px; height: 600px;
-      border-radius: 50%;
+      position: fixed; width: 600px; height: 600px; border-radius: 50%;
       background: radial-gradient(circle, rgba(200,241,53,.08) 0%, transparent 70%);
-      top: -150px; right: -150px;
-      animation: drift 14s ease-in-out infinite alternate;
-      pointer-events: none;
+      top: -150px; right: -150px; animation: drift 14s ease-in-out infinite alternate; pointer-events: none;
     }
-    @keyframes drift {
-      from { transform: translate(0, 0) scale(1); }
-      to   { transform: translate(-80px, 120px) scale(1.15); }
-    }
+    @keyframes drift { from { transform: translate(0,0) scale(1); } to { transform: translate(-80px,120px) scale(1.15); } }
+    .page { position: relative; z-index: 1; min-height: 100vh; display: grid; grid-template-rows: auto 1fr auto; }
 
-    /* ── layout ── */
-    .page {
-      position: relative; z-index: 1;
-      min-height: 100vh;
-      display: grid;
-      grid-template-rows: auto 1fr auto;
-    }
-
-    /* ── header ── */
     header {
       display: flex; align-items: center; justify-content: space-between;
-      padding: 1.5rem 2.5rem;
-      border-bottom: 1px solid var(--border);
+      padding: 1.5rem 2.5rem; border-bottom: 1px solid var(--border);
       animation: fadeDown .6s ease both;
     }
-    .logo {
-      display: flex; align-items: center; gap: .6rem;
-      font-size: .78rem; letter-spacing: .12em; text-transform: uppercase; color: var(--text-dim);
-    }
-    .logo-dot {
-      width: 8px; height: 8px; border-radius: 50%;
-      background: var(--accent);
-      box-shadow: 0 0 10px var(--accent);
-      animation: pulse 2.4s ease-in-out infinite;
-    }
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50%       { opacity: .5; transform: scale(.7); }
-    }
+    .logo { display: flex; align-items: center; gap: .6rem; font-size: .78rem; letter-spacing: .12em; text-transform: uppercase; color: var(--text-dim); }
+    .logo-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 10px var(--accent); animation: pulse 2.4s ease-in-out infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: .5; transform: scale(.7); } }
     nav { display: flex; gap: 2rem; }
-    nav a {
-      font-size: .78rem; letter-spacing: .08em; text-transform: uppercase;
-      color: var(--text-dim); text-decoration: none;
-      transition: color .2s;
-    }
+    nav a { font-size: .78rem; letter-spacing: .08em; text-transform: uppercase; color: var(--text-dim); text-decoration: none; transition: color .2s; }
     nav a:hover { color: var(--accent); }
 
-    /* ── hero ── */
     main {
-      display: flex; flex-direction: column;
-      justify-content: center; align-items: flex-start;
-      padding: 5rem 2.5rem 3rem;
-      max-width: 900px; margin: 0 auto; width: 100%;
+      display: flex; flex-direction: column; justify-content: flex-start; align-items: flex-start;
+      padding: 5rem 2.5rem 5rem; max-width: 900px; margin: 0 auto; width: 100%;
     }
-    .eyebrow {
-      font-size: .72rem; letter-spacing: .2em; text-transform: uppercase;
-      color: var(--accent); margin-bottom: 1.5rem;
-      animation: fadeUp .6s .1s ease both;
-    }
-    h1 {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(3rem, 8vw, 6.5rem);
-      line-height: 1.02;
-      color: var(--text);
-      margin-bottom: 1.8rem;
-      animation: fadeUp .6s .2s ease both;
-    }
+    .eyebrow { font-size: .72rem; letter-spacing: .2em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.5rem; animation: fadeUp .6s .1s ease both; }
+    h1 { font-family: 'DM Serif Display', serif; font-size: clamp(3rem, 8vw, 6.5rem); line-height: 1.02; color: var(--text); margin-bottom: 1.8rem; animation: fadeUp .6s .2s ease both; }
     h1 em { font-style: italic; color: var(--accent); }
+    .desc { font-size: .92rem; line-height: 1.9; color: var(--text-dim); max-width: 540px; margin-bottom: 3rem; animation: fadeUp .6s .3s ease both; }
+    .desc code { font-family: 'DM Mono', monospace; font-size: .85rem; background: var(--border); padding: .1rem .4rem; border-radius: 3px; color: var(--text); }
 
-    .desc {
-      font-size: .92rem; line-height: 1.9;
-      color: var(--text-dim); max-width: 520px;
-      margin-bottom: 3rem;
-      animation: fadeUp .6s .3s ease both;
-    }
-
-    /* ── CTA buttons ── */
-    .cta-row {
-      display: flex; flex-wrap: wrap; gap: 1rem;
-      animation: fadeUp .6s .4s ease both;
-    }
+    .cta-row { display: flex; flex-wrap: wrap; gap: 1rem; animation: fadeUp .6s .4s ease both; }
     .btn {
-      display: inline-flex; align-items: center; gap: .5rem;
-      padding: .75rem 1.6rem;
-      border-radius: 3px;
-      font-family: 'DM Mono', monospace;
-      font-size: .8rem; letter-spacing: .06em; text-transform: uppercase;
-      cursor: pointer; text-decoration: none;
-      transition: transform .2s, box-shadow .2s;
+      display: inline-flex; align-items: center; gap: .5rem; padding: .75rem 1.6rem; border-radius: 3px;
+      font-family: 'DM Mono', monospace; font-size: .8rem; letter-spacing: .06em; text-transform: uppercase;
+      cursor: pointer; text-decoration: none; transition: transform .2s, box-shadow .2s;
     }
     .btn:hover { transform: translateY(-2px); }
-    .btn-primary {
-      background: var(--accent); color: #0b0c0f;
-      box-shadow: 0 0 0 transparent;
-    }
+    .btn-primary { background: var(--accent); color: #0b0c0f; }
     .btn-primary:hover { box-shadow: 0 6px 24px rgba(200,241,53,.35); }
-    .btn-ghost {
-      background: transparent; color: var(--text);
-      border: 1px solid var(--border);
-    }
+    .btn-ghost { background: transparent; color: var(--text); border: 1px solid var(--border); }
     .btn-ghost:hover { border-color: var(--muted); }
 
-    /* ── status cards ── */
     .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-      gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      overflow: hidden;
-      margin: 4rem 0 0;
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(195px, 1fr));
+      gap: 1px; background: var(--border); border: 1px solid var(--border);
+      border-radius: 6px; overflow: hidden; margin: 4rem 0 0; width: 100%;
       animation: fadeUp .6s .5s ease both;
     }
-    .card {
-      background: var(--surface);
-      padding: 1.6rem 1.8rem;
-      transition: background .2s;
-    }
+    .card { background: var(--surface); padding: 1.6rem 1.8rem; transition: background .2s; }
     .card:hover { background: #181b22; }
-    .card-label {
-      font-size: .68rem; letter-spacing: .16em; text-transform: uppercase;
-      color: var(--text-dim); margin-bottom: .6rem;
-    }
-    .card-value {
-      font-size: 1.4rem; font-weight: 500; color: var(--text);
-    }
+    .card-label { font-size: .68rem; letter-spacing: .16em; text-transform: uppercase; color: var(--text-dim); margin-bottom: .6rem; }
+    .card-value { font-size: 1.35rem; font-weight: 500; color: var(--text); }
     .card-value.live { color: var(--accent); }
 
-    /* ── terminal block ── */
     .terminal {
-      margin-top: 3rem; width: 100%;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 6px; overflow: hidden;
+      margin-top: 3rem; width: 100%; background: var(--surface);
+      border: 1px solid var(--border); border-radius: 6px; overflow: hidden;
       animation: fadeUp .6s .6s ease both;
     }
-    .terminal-bar {
-      display: flex; align-items: center; gap: .5rem;
-      padding: .75rem 1rem;
-      background: var(--border);
-    }
+    .terminal-bar { display: flex; align-items: center; gap: .5rem; padding: .75rem 1rem; background: var(--border); }
     .dot { width: 10px; height: 10px; border-radius: 50%; }
-    .dot-r { background: #ff5f57; }
-    .dot-y { background: #febc2e; }
-    .dot-g { background: #28c840; }
-    .terminal-body {
-      padding: 1.4rem 1.6rem;
-      font-size: .82rem; line-height: 2;
-      color: var(--text-dim);
-    }
-    .cmd { color: var(--accent); }
-    .cmt { color: var(--muted); }
+    .dot-r { background: #ff5f57; } .dot-y { background: #febc2e; } .dot-g { background: #28c840; }
+    .terminal-body { padding: 1.4rem 1.6rem; font-size: .82rem; line-height: 2; color: var(--text-dim); }
+    .cmd { color: var(--accent); } .cmt { color: var(--muted); }
 
-    /* ── footer ── */
+    /* ── CI/CD section ── */
+    .section-label {
+      font-size: .68rem; letter-spacing: .22em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 2rem; margin-top: 5rem;
+      display: flex; align-items: center; gap: 1rem; width: 100%;
+      animation: fadeUp .6s .62s ease both;
+    }
+    .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+    .pipeline {
+      display: flex; flex-direction: column; position: relative; width: 100%;
+      animation: fadeUp .6s .68s ease both;
+    }
+    .pipeline::before {
+      content: ''; position: absolute; left: 19px; top: 40px; bottom: 20px; width: 2px;
+      background: linear-gradient(to bottom, rgba(200,241,53,.3), transparent);
+    }
+    .step { display: grid; grid-template-columns: 40px 1fr; gap: 1.4rem; padding: 1.5rem 0; border-bottom: 1px solid var(--border); }
+    .step:last-child { border-bottom: none; }
+    .step:hover .step-content { transform: translateX(5px); }
+    .step-num {
+      width: 40px; height: 40px; border-radius: 50%; background: var(--surface);
+      border: 1px solid var(--border); display: flex; align-items: center; justify-content: center;
+      font-size: .72rem; font-weight: 500; color: var(--accent);
+      flex-shrink: 0; transition: all .25s; margin-top: .15rem;
+    }
+    .step:hover .step-num { background: rgba(200,241,53,.1); border-color: var(--accent); box-shadow: 0 0 14px rgba(200,241,53,.25); }
+    .step-content { transition: transform .2s; }
+    .step-title {
+      font-size: .88rem; font-weight: 500; color: var(--text); margin-bottom: .5rem;
+      display: flex; align-items: center; gap: .6rem; flex-wrap: wrap;
+    }
+    .badge { font-size: .6rem; letter-spacing: .1em; text-transform: uppercase; padding: .15rem .55rem; border-radius: 2px; }
+    .badge-green { background: rgba(200,241,53,.1); color: var(--accent); border: 1px solid rgba(200,241,53,.25); }
+    .badge-blue   { background: rgba(99,179,237,.1); color: #63b3ed; border: 1px solid rgba(99,179,237,.25); }
+    .badge-purple { background: rgba(183,148,244,.1); color: #b794f4; border: 1px solid rgba(183,148,244,.25); }
+    .badge-orange { background: rgba(246,173,85,.1); color: #f6ad55; border: 1px solid rgba(246,173,85,.25); }
+    .step-desc { font-size: .8rem; line-height: 1.9; color: var(--text-dim); }
+    .step-desc code { font-family: 'DM Mono', monospace; font-size: .76rem; color: var(--text); background: var(--border); padding: .1rem .42rem; border-radius: 3px; }
+
+    .infra-row { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: 3rem; width: 100%; animation: fadeUp .6s .75s ease both; }
+    .infra-tag {
+      font-size: .7rem; letter-spacing: .07em; padding: .38rem .9rem; border-radius: 999px;
+      border: 1px solid var(--border); color: var(--text-dim);
+      display: flex; align-items: center; gap: .45rem; transition: border-color .2s, color .2s;
+    }
+    .infra-tag:hover { border-color: var(--muted); color: var(--text); }
+
     footer {
       display: flex; align-items: center; justify-content: space-between;
-      padding: 1.2rem 2.5rem;
-      border-top: 1px solid var(--border);
-      font-size: .72rem; letter-spacing: .08em;
-      color: var(--muted);
+      padding: 1.2rem 2.5rem; border-top: 1px solid var(--border);
+      font-size: .72rem; letter-spacing: .08em; color: var(--muted);
       animation: fadeDown .6s .7s ease both;
     }
-    .status-pill {
-      display: flex; align-items: center; gap: .5rem;
-    }
+    .status-pill { display: flex; align-items: center; gap: .5rem; }
 
-    /* ── keyframes ── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(18px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes fadeDown {
-      from { opacity: 0; transform: translateY(-10px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    /* ── live status fetch ── */
+    @keyframes fadeUp   { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
     #live-status { transition: color .3s; }
   </style>
 </head>
@@ -225,12 +149,8 @@
 <div class="blob"></div>
 <div class="page">
 
-  <!-- Header -->
   <header>
-    <div class="logo">
-      <span class="logo-dot"></span>
-      Flask&nbsp;/&nbsp;App
-    </div>
+    <div class="logo"><span class="logo-dot"></span>Flask&nbsp;/&nbsp;App</div>
     <nav>
       <a href="/">Home</a>
       <a href="/api/status">Status</a>
@@ -238,13 +158,13 @@
     </nav>
   </header>
 
-  <!-- Hero -->
   <main>
-    <p class="eyebrow">v1.0.0 &nbsp;·&nbsp; Python + Flask</p>
+    <p class="eyebrow">v1.0.0 &nbsp;·&nbsp; Python + Flask &nbsp;·&nbsp; Self-Hosted Linux Runner</p>
     <h1>Build fast,<br/><em>ship clean.</em></h1>
     <p class="desc">
-      A minimal, production-ready Flask boilerplate — clean routes,
-      a health-check API, and a landing page ready for your next idea.
+      Deployed on a self-hosted Linux runner via GitHub Actions —
+      built into a Docker image, pushed to Docker Hub, and rolled
+      out automatically with <code>docker-compose</code> on every push to main.
     </p>
 
     <div class="cta-row">
@@ -252,7 +172,6 @@
       <a class="btn btn-ghost" href="/api/hello">Say Hello</a>
     </div>
 
-    <!-- Stat cards -->
     <div class="cards">
       <div class="card">
         <div class="card-label">Server</div>
@@ -267,33 +186,111 @@
         <div class="card-value">0.0.0.0</div>
       </div>
       <div class="card">
-        <div class="card-label">Endpoints</div>
-        <div class="card-value">3</div>
+        <div class="card-label">Runner</div>
+        <div class="card-value" style="font-size:.95rem;margin-top:.1rem;">Self-Hosted</div>
       </div>
     </div>
 
-    <!-- Terminal -->
     <div class="terminal">
       <div class="terminal-bar">
-        <div class="dot dot-r"></div>
-        <div class="dot dot-y"></div>
-        <div class="dot dot-g"></div>
+        <div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div>
       </div>
       <div class="terminal-body">
-        <div><span class="cmt"># install dependencies</span></div>
-        <div><span class="cmd">$</span> pip install -r requirements.txt</div>
+        <div><span class="cmt"># start locally</span></div>
+        <div><span class="cmd">$</span> python app.py</div>
         <br/>
-        <div><span class="cmt"># start the server</span></div>
-        <div><span class="cmd">$</span> python run.py</div>
+        <div><span class="cmt"># or via docker-compose</span></div>
+        <div><span class="cmd">$</span> docker-compose up --build -d</div>
         <br/>
         <div><span class="cmt"># running on http://0.0.0.0:80</span></div>
       </div>
     </div>
+
+    <!-- CI/CD section -->
+    <div class="section-label">CI / CD Pipeline &nbsp;— GitHub Actions</div>
+
+    <div class="pipeline">
+
+      <div class="step">
+        <div class="step-num">0</div>
+        <div class="step-content">
+          <div class="step-title">Self-Hosted Runner Setup <span class="badge badge-purple">One-time</span></div>
+          <div class="step-desc">
+            Registered a GitHub Actions self-hosted runner on a Linux machine. Installed Docker,
+            added the runner user to the <code>docker</code> group via
+            <code>usermod -aG docker $USER</code>, and verified socket permissions so the runner
+            can call Docker without <code>sudo</code>.
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <div class="step-title">Build Docker Image &amp; Push to Docker Hub <span class="badge badge-blue">Action 1</span></div>
+          <div class="step-desc">
+            On every push to <code>main</code>, the first workflow checks out the repo, builds the
+            Docker image from the <code>Dockerfile</code> at the project root, and pushes it to
+            Docker Hub with two tags — <code>latest</code> and the short commit SHA (e.g.
+            <code>abc1234</code>) for traceability. Uses <code>docker/login-action</code> and
+            <code>docker/build-push-action</code>.
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <div class="step-title">Copy Code to Runner <span class="badge badge-green">Action 2</span></div>
+          <div class="step-desc">
+            The second workflow (triggered after Action 1 succeeds) uses
+            <code>actions/checkout</code> to copy the latest source onto the self-hosted runner's
+            workspace, making <code>docker-compose.yml</code> and any config files available for
+            the deploy step.
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <div class="step-title">Docker Login on Runner <span class="badge badge-green">Action 2</span></div>
+          <div class="step-desc">
+            The runner authenticates to Docker Hub using credentials stored as GitHub Secrets
+            (<code>DOCKER_USERNAME</code> &amp; <code>DOCKER_PASSWORD</code>), so it can pull
+            the freshly-pushed image in the next step without hitting rate limits.
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <div class="step-title">Redeploy with docker-compose <span class="badge badge-orange">Deploy</span></div>
+          <div class="step-desc">
+            Runs <code>docker-compose down</code> to stop and remove the running containers, then
+            <code>docker-compose up --build -d</code> to pull the latest image and bring the stack
+            back up in detached mode. Zero manual SSH required — every push to <code>main</code>
+            ships automatically to the server.
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="infra-row">
+      <div class="infra-tag">🐧 Linux (Ubuntu)</div>
+      <div class="infra-tag">⚙️ GitHub Actions</div>
+      <div class="infra-tag">🐳 Docker Hub</div>
+      <div class="infra-tag">🔧 docker-compose</div>
+      <div class="infra-tag">🏃 Self-Hosted Runner</div>
+      <div class="infra-tag">🐍 Python + Flask</div>
+    </div>
+
   </main>
 
-  <!-- Footer -->
   <footer>
-    <span>Flask Boilerplate</span>
+    <span>Flask App &nbsp;·&nbsp; Deployed via GitHub Actions on Self-Hosted Linux</span>
     <div class="status-pill">
       <span class="logo-dot" style="width:6px;height:6px;"></span>
       <span id="footer-ts">Loading…</span>
