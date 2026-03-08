@@ -1,3 +1,7 @@
+# This file will use the matrix strategy and deploy the python code on listed versions
+# fail-fast: can be true (if error occured it will stop further processing) false (even after error code will continue) 
+
+
 name: matrix strategy
 
 on: 

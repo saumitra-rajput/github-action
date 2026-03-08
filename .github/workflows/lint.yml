@@ -1,8 +1,14 @@
-name: lint and matrix stratagies
+# This file will copy the code in runner 
+# Install the python and it's dependencies
+# Make sure if your requirements.txt has flake8 included.
+# Run the code check for app.py in using Linter flake8 
+
+# Updated the Lint : only run on manually
+
+name: linter for Python
 
 on: 
-    push:
-        branches: [ main ]
+    workflow_dispatch:
 
 jobs:
     validate:
