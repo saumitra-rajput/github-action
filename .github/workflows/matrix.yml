@@ -1,0 +1,25 @@
+name: matrix strategy
+
+on: 
+  push:
+    branches: [ main ]
+
+jobs: 
+  matrix-for-python:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix: 
+        python-version: [ "3.13", "3.12", "3.11", "3.10" ]
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v4
+      
+      - name: install python ${{ matrix.python-version }}
+        uses: actions/setup-python@3
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: install dependencies
+        run: pip install -r requirement.txt
+      
