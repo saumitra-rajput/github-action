@@ -27,4 +27,5 @@ jobs:
                 password: ${{ secrets.DOCKERHUB_SECRET }}
             
             - name: deploy with docker compose
-              run: docker compose up -d --build
+              run: docker-compose up -d --build
+              
