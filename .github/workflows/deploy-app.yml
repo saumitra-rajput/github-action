@@ -1,8 +1,9 @@
 name: Deploy app on self-hosted runner
 
 on: 
-    push:
-        branches: [ main ]
+    workflow_dispatch:
+    # push:
+    #      branches: [ main ]
 
 jobs:    
     deploy:
@@ -20,7 +21,7 @@ jobs:
                 # sudo systemctl start docker
                 # sudo usermod -aG docker $USER   
             
-                
+
             - name: login into the Docker Hub
               uses: docker/login-action@v3
               with:
