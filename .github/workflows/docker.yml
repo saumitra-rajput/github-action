@@ -3,7 +3,7 @@
 # Login into the DockerHub using env variables and secrets
 # Push the build image to the Docker hub with the tag define below
 
-name: docker
+name: Docker build and Push
 
 on: 
     workflow_dispatch:
