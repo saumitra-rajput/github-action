@@ -13,10 +13,12 @@ jobs:
         steps:
             - name: checkout code
               uses: actions/checkout@v4
-            
-            - name: Set up Docker compose on self-runner
-              # uses: docker/setup-compose-action@v2  # Not working
-              uses: docker/setup-buildx-action@v3
+# You have to make sure your Runner has docker.io and docker-compose installed with the correct permissions            
+                # sudo apt update
+                # sudo apt install -y docker.io docker-compose-plugin
+                # sudo systemctl enable docker
+                # sudo systemctl start docker
+                # sudo usermod -aG docker $USER   
             
             - name: login into the Docker Hub
               uses: docker/login-action@v3
