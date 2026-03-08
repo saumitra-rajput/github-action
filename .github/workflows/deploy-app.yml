@@ -6,8 +6,8 @@ on:
 
 jobs:    
     deploy:
-        env:
-            GITHUB_USER: ${{ vars.GITHUB_USER }}
+        # env:
+        #     GITHUB_USER: ${{ vars.GITHUB_USER }}
 
         runs-on: self-hosted
         steps:
