@@ -1,5 +1,5 @@
 services:
   web:
-    image: ${DOCKERHUB_USER}/action:${IMAGE_TAG}
+    image: ${DOCKERHUB_USER}/buil-push:${IMAGE_TAG}
     ports:
     - "80:80"
