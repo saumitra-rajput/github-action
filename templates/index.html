@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flask App</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #0b0c0f;
+      --surface:  #13151a;
+      --border:   #1e2128;
+      --accent:   #c8f135;
+      --muted:    #4a4f5c;
+      --text:     #e8eaf0;
+      --text-dim: #7a8090;
+    }
+
+    html, body {
+      height: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Mono', monospace;
+      overflow-x: hidden;
+    }
+
+    /* ── noise grain overlay ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+
+    /* ── animated gradient blob ── */
+    .blob {
+      position: fixed;
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(200,241,53,.08) 0%, transparent 70%);
+      top: -150px; right: -150px;
+      animation: drift 14s ease-in-out infinite alternate;
+      pointer-events: none;
+    }
+    @keyframes drift {
+      from { transform: translate(0, 0) scale(1); }
+      to   { transform: translate(-80px, 120px) scale(1.15); }
+    }
+
+    /* ── layout ── */
+    .page {
+      position: relative; z-index: 1;
+      min-height: 100vh;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+    }
+
+    /* ── header ── */
+    header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.5rem 2.5rem;
+      border-bottom: 1px solid var(--border);
+      animation: fadeDown .6s ease both;
+    }
+    .logo {
+      display: flex; align-items: center; gap: .6rem;
+      font-size: .78rem; letter-spacing: .12em; text-transform: uppercase; color: var(--text-dim);
+    }
+    .logo-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 10px var(--accent);
+      animation: pulse 2.4s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: .5; transform: scale(.7); }
+    }
+    nav { display: flex; gap: 2rem; }
+    nav a {
+      font-size: .78rem; letter-spacing: .08em; text-transform: uppercase;
+      color: var(--text-dim); text-decoration: none;
+      transition: color .2s;
+    }
+    nav a:hover { color: var(--accent); }
+
+    /* ── hero ── */
+    main {
+      display: flex; flex-direction: column;
+      justify-content: center; align-items: flex-start;
+      padding: 5rem 2.5rem 3rem;
+      max-width: 900px; margin: 0 auto; width: 100%;
+    }
+    .eyebrow {
+      font-size: .72rem; letter-spacing: .2em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 1.5rem;
+      animation: fadeUp .6s .1s ease both;
+    }
+    h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(3rem, 8vw, 6.5rem);
+      line-height: 1.02;
+      color: var(--text);
+      margin-bottom: 1.8rem;
+      animation: fadeUp .6s .2s ease both;
+    }
+    h1 em { font-style: italic; color: var(--accent); }
+
+    .desc {
+      font-size: .92rem; line-height: 1.9;
+      color: var(--text-dim); max-width: 520px;
+      margin-bottom: 3rem;
+      animation: fadeUp .6s .3s ease both;
+    }
+
+    /* ── CTA buttons ── */
+    .cta-row {
+      display: flex; flex-wrap: wrap; gap: 1rem;
+      animation: fadeUp .6s .4s ease both;
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: .5rem;
+      padding: .75rem 1.6rem;
+      border-radius: 3px;
+      font-family: 'DM Mono', monospace;
+      font-size: .8rem; letter-spacing: .06em; text-transform: uppercase;
+      cursor: pointer; text-decoration: none;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary {
+      background: var(--accent); color: #0b0c0f;
+      box-shadow: 0 0 0 transparent;
+    }
+    .btn-primary:hover { box-shadow: 0 6px 24px rgba(200,241,53,.35); }
+    .btn-ghost {
+      background: transparent; color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-ghost:hover { border-color: var(--muted); }
+
+    /* ── status cards ── */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+      margin: 4rem 0 0;
+      animation: fadeUp .6s .5s ease both;
+    }
+    .card {
+      background: var(--surface);
+      padding: 1.6rem 1.8rem;
+      transition: background .2s;
+    }
+    .card:hover { background: #181b22; }
+    .card-label {
+      font-size: .68rem; letter-spacing: .16em; text-transform: uppercase;
+      color: var(--text-dim); margin-bottom: .6rem;
+    }
+    .card-value {
+      font-size: 1.4rem; font-weight: 500; color: var(--text);
+    }
+    .card-value.live { color: var(--accent); }
+
+    /* ── terminal block ── */
+    .terminal {
+      margin-top: 3rem; width: 100%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px; overflow: hidden;
+      animation: fadeUp .6s .6s ease both;
+    }
+    .terminal-bar {
+      display: flex; align-items: center; gap: .5rem;
+      padding: .75rem 1rem;
+      background: var(--border);
+    }
+    .dot { width: 10px; height: 10px; border-radius: 50%; }
+    .dot-r { background: #ff5f57; }
+    .dot-y { background: #febc2e; }
+    .dot-g { background: #28c840; }
+    .terminal-body {
+      padding: 1.4rem 1.6rem;
+      font-size: .82rem; line-height: 2;
+      color: var(--text-dim);
+    }
+    .cmd { color: var(--accent); }
+    .cmt { color: var(--muted); }
+
+    /* ── footer ── */
+    footer {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 2.5rem;
+      border-top: 1px solid var(--border);
+      font-size: .72rem; letter-spacing: .08em;
+      color: var(--muted);
+      animation: fadeDown .6s .7s ease both;
+    }
+    .status-pill {
+      display: flex; align-items: center; gap: .5rem;
+    }
+
+    /* ── keyframes ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── live status fetch ── */
+    #live-status { transition: color .3s; }
+  </style>
+</head>
+<body>
+<div class="blob"></div>
+<div class="page">
+
+  <!-- Header -->
+  <header>
+    <div class="logo">
+      <span class="logo-dot"></span>
+      Flask&nbsp;/&nbsp;App
+    </div>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/api/status">Status</a>
+      <a href="/api/hello">Hello</a>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <main>
+    <p class="eyebrow">v1.0.0 &nbsp;·&nbsp; Python + Flask</p>
+    <h1>Build fast,<br/><em>ship clean.</em></h1>
+    <p class="desc">
+      A minimal, production-ready Flask boilerplate — clean routes,
+      a health-check API, and a landing page ready for your next idea.
+    </p>
+
+    <div class="cta-row">
+      <a class="btn btn-primary" href="/api/status">Check Status →</a>
+      <a class="btn btn-ghost" href="/api/hello">Say Hello</a>
+    </div>
+
+    <!-- Stat cards -->
+    <div class="cards">
+      <div class="card">
+        <div class="card-label">Server</div>
+        <div class="card-value live" id="live-status">—</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Port</div>
+        <div class="card-value">80</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Host</div>
+        <div class="card-value">0.0.0.0</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Endpoints</div>
+        <div class="card-value">3</div>
+      </div>
+    </div>
+
+    <!-- Terminal -->
+    <div class="terminal">
+      <div class="terminal-bar">
+        <div class="dot dot-r"></div>
+        <div class="dot dot-y"></div>
+        <div class="dot dot-g"></div>
+      </div>
+      <div class="terminal-body">
+        <div><span class="cmt"># install dependencies</span></div>
+        <div><span class="cmd">$</span> pip install -r requirements.txt</div>
+        <br/>
+        <div><span class="cmt"># start the server</span></div>
+        <div><span class="cmd">$</span> python run.py</div>
+        <br/>
+        <div><span class="cmt"># running on http://0.0.0.0:80</span></div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <span>Flask Boilerplate</span>
+    <div class="status-pill">
+      <span class="logo-dot" style="width:6px;height:6px;"></span>
+      <span id="footer-ts">Loading…</span>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+  async function ping() {
+    try {
+      const r = await fetch('/api/status');
+      const d = await r.json();
+      document.getElementById('live-status').textContent = d.status.toUpperCase();
+      const ts = new Date(d.timestamp);
+      document.getElementById('footer-ts').textContent =
+        ts.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    } catch {
+      document.getElementById('live-status').textContent = 'OFFLINE';
+      document.getElementById('live-status').style.color = '#ff5f57';
+    }
+  }
+  ping();
+  setInterval(ping, 5000);
+</script>
+</body>
+</html>
