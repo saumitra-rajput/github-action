@@ -30,7 +30,7 @@ jobs:
                 push: true
                 tags: |
                   ${{ vars.DOCKERHUB_USER }}/test:${{ github.ref_name }}
-                  ${{ vars.DOCKERHUB_USER }}/buil-push:${{ github.sha }}
+                  ${{ vars.DOCKERHUB_USER }}/built-push:${{ github.sha }}
                   ${{ vars.DOCKERHUB_USER }}/action:v1.0
 
 
