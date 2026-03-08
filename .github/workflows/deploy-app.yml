@@ -5,12 +5,10 @@ on:
         branches: [ main ]
 
 jobs:    
-    
     deploy:
         env:
-            GITHUB_USER: ${{ GITHUB_USER }}
-            GITHUB_SECRET: ${{ GITHUB_SECRET }}
-            
+            GITHUB_USER: ${{ vars.GITHUB_USER }}
+
         runs-on: self-hosted
         steps:
             - name: checkout code
@@ -21,7 +19,6 @@ jobs:
               with:
                 username: ${{ vars.DOCKERHUB_USER }}
                 password: ${{ secrets.DOCKERHUB_SECRET }}
-            
             
             - name: deploy with docker compose
               run: docker compose up -d --build
