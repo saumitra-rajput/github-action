@@ -29,6 +29,7 @@ jobs:
                 username: ${{ vars.DOCKERHUB_USER }}
                 password: ${{ secrets.DOCKERHUB_SECRET }}
             
-            - name: deploy with docker compose
-              run: docker-compose up -d --build
+            - name: deploy with docker compose 
+              # Added force recreate to ensure every time new container is created.
+              run: docker-compose up -d --build --force-recreate
               
