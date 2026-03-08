@@ -7,8 +7,9 @@ on:
 
 jobs:    
     deploy:
-        # env:
-        #     GITHUB_USER: ${{ vars.GITHUB_USER }}
+        # Added env DOCKERHUB_USER here because it was define in docker-compose.yml file 
+        env:
+            DOCKERHUB_USER: ${{ vars.DOCKERHUB_USER }}
 
         runs-on: self-hosted
         steps:
