@@ -5,7 +5,8 @@ on:
 
 jobs:
   test-runner:
-    runs-on: self-hosted
+    runs-on: [ self-hosted, my-self-hosted-linux ] # Added label to self-hosted runner
+    # runs-on: self-hosted
 
     steps:
       - name: Checkout Repository
