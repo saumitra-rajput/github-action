@@ -1,0 +1,5 @@
+services:
+  web:
+    image: ${DOCKERHUB_USER}/action:v1.0
+    ports:
+    - "80:80"
