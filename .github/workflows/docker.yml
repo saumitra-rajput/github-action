@@ -23,13 +23,13 @@ jobs:
                 password: ${{ secrets.DOCKERHUB_SECRET }}
             
             - name: build and push to Docker Hub
-              uses: docker/build-push-action@v5
+              uses: docker/build-push-action@v6
               with:
                 context: .
                 push: true
                 tags: |
-                  ${{ vars.DOCKERHUB_USER }}/${{ vars.GITHUB_REPO }}:${{ github.ref_name }}
-                  ${{ vars.DOCKERHUB_USER }}/action:${{ github.sha }}
+                  ${{ vars.DOCKERHUB_USER }}/test:${{ github.ref_name }}
+                  ${{ vars.DOCKERHUB_USER }}/buil-push:${{ github.sha }}
                   ${{ vars.DOCKERHUB_USER }}/action:v1.0
 
 
