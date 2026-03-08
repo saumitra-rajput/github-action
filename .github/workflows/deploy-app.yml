@@ -2,8 +2,11 @@ name: Deploy app on self-hosted runner
 
 on: 
     workflow_dispatch:
-    push:
-         branches: [ main ]
+    workflow_run:
+        workflows: [ "Docker Build and Push" ] # Name of the upstream workflow(Deploy will only work after the DockerBnP is completed)    
+        types: [completed]
+        branches:
+            -  main
 
 jobs:    
     deploy:
