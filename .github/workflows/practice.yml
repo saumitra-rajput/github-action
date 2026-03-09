@@ -10,7 +10,7 @@ jobs:
     install-py:
         runs-on: ${{ matrix.os }}
         strategy:
-            fail-fast: true
+            fail-fast: false
             matrix:
                 os: ["ubuntu-latest", "windows-latest"]
                 python-version: ["3.10", "3.999", "3.12"]
