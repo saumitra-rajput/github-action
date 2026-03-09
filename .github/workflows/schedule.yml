@@ -3,8 +3,9 @@
 name: cron
 
 on: 
+    workflow_dispatch:
     schedule:
-        - cron: "* * * * *"
+        - cron: "* * * * *" # for Testing purpose
         - cron: "0 0 * * *"
 
 jobs:
