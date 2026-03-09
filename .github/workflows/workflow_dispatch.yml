@@ -1,0 +1,19 @@
+name: Workflow
+
+on: 
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: Please select the Branch
+        type: choice
+        options: 
+          - main
+          - master
+          - dev
+  
+jobs:
+  choose-branch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Shows the Branch Name on which action runs.
+        run: echo "Runner is triggered on Branch ${{ github.event.inputs.branch }}"
