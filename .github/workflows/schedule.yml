@@ -7,7 +7,7 @@ on:
         branches: [ main ]
     workflow_dispatch:
     schedule:
-        - cron: "* * * * *" # for Testing purpose
+        # - cron: "* * * * *" # for Testing purpose
         - cron: "0 0 * * *"
 
 jobs:
