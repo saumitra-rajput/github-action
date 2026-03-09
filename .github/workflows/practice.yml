@@ -14,6 +14,12 @@ jobs:
             matrix:
                 os: ["ubuntu-latest", "windows-latest"]
                 python-version: ["3.10", "3.12"]
+
+                exclude: 
+                    - os: window-latest
+                      python-version: "3.10"
+
+
         steps:
             - name: Install Python  ${{ matrix.python-version }}
               uses: actions/setup-python@v5
