@@ -32,11 +32,15 @@ jobs:
     test:
         runs-on: ubuntu-latest
         steps:
-             - name: Print Message of Test
-               run: echo "Running the TEST"
+            - name: Print Message of Test
+              run: echo "Running the TEST"
+            - name: Setting the output
+              run: echo " date=$(date)"  >> $GITHUB_OUTPUT
     deploy:
         runs-on: ubuntu-latest
         steps:
             - name: Print Message of Deployment
               run: echo " Deploying"
+            - name: Get the output from test job and print here
+              run: echo "Output from test ${{ needs.test.GITHUB_OUTPUT.date }}"
 
