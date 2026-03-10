@@ -32,7 +32,7 @@ jobs:
     test:
         runs-on: ubuntu-latest
         outputs:
-            date: ${steps.date.outputs.today} 
+            date: ${steps.date.outputs.date} 
 
         steps:
             - name: Print Message of Test
