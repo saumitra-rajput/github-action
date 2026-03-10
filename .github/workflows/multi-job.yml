@@ -3,15 +3,30 @@ name: Multi-job
 on: 
     push:
         branches: [ main ]
+# workflow level env vars p3
+env:
+    APP_NAME: myapp
 
 jobs:
     build:
         runs-on: ubuntu-latest
+        # job level env vars p2
+        env: 
+            ENVIRONMENT: staging
+
         steps:
+            # step level env vars p1
             - name: Print Message of Build
-              run: echo "Building the APP"
+              env:
+                VERSION: "1.1.0"
+              run: |
+                echo "Building the APP"
+                echo "Application $APP_NAME"
+                echo "Environment $ENVIRONMENT"
+                echo "Version info $VERSION"
+
     test:
-        runs-on: ubunut-latest
+        runs-on: ubuntu-latest
         steps:
              - name: Print Message of Test
                run: echo "Running the TEST"
