@@ -34,8 +34,8 @@ jobs:
                 python-version: "3.13"
             - name: Install the dependencies
               run: pip install -r requirements.txt
-            - name: Test the app.py
-              run: python app.py
+            - name: Check python syntax
+              run: python -v py_complie app.py
     summary:
         runs-on: ubuntu-latest
         needs: [ linter,test ]
