@@ -1,14 +1,19 @@
 name: Multi-job
 
 on: 
-    push:
+    workflow_dispatch: [ main, dev ]
+    push: 
         branches: [ main ]
+
+        
+
 # workflow level env vars p3
 env:
     APP_NAME: myapp
 
 jobs:
     build:
+        if: github.ref == 'refs/heads/main'
         runs-on: ubuntu-latest
         # job level env vars p2
         env: 
