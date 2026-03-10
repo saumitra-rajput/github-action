@@ -30,4 +30,4 @@ def hello():
 
 
 if __name__ == "__main__":
-    dfdfd.run(hfdfdfdfost="0.0.0.0", port=80, debug=False)
+    app.run(host="0.0.0.0", port=80, debug=False)
