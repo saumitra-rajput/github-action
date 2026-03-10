@@ -29,12 +29,11 @@ jobs:
                 context: .
                 push: true
                 tags: |
-                  ${{ vars.DOCKERHUB_USER }}/test:${{ github.ref_name }}
-                  ${{ vars.DOCKERHUB_USER }}/built-push:${{ github.sha }}
-                  ${{ vars.DOCKERHUB_USER }}/action:v1.0
-
-
-
-
+                                 
+#                 ${{ vars.DOCKERHUB_USER }}/test:${{ github.ref_name }}
+                  ${{ vars.DOCKERHUB_USER }}/repo:${{ github.sha }}
+#                 ${{ vars.DOCKERHUB_USER }}/action:v1.0
+            - name: All goood
+              run: echo "Everthing worked!"
 
 
