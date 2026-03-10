@@ -53,15 +53,14 @@ jobs:
             - name: Manual fail
               id: fail_step
               run: exit 1
-            - name: Rn when previous step fails
+            - name: Run when previous step fails
               if: failure()
               run: echo "Previous step failed, so this step is running"
 
             - name: Step with the continue-on-error
-              if: failure()
               continue-on-error: true
               run: |
-                echo: " This step will fail but the worklow continues"
+                echo: "This step will fail but the worklow continues"
                 exit 1
             - name: Workflow continue
               run: echo "workflow did not stop on failure, and continue-on-error"
