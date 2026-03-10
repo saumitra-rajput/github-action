@@ -1,24 +1,24 @@
-# name: Secret-Artifacts
+name: Secret-Artifacts
 
-# on: 
-#     push:
-#         branches: [ main ]
+on: 
+    push:
+        branches: [ main ]
 
-# jobs:
-    # secrets:
-    #     runs-on: ubuntu-latest
-    #     steps:
-    #         - name: Try to print test secret
-    #           run: echo " This is ${{ secrets.MY_TEST_SECRET }}"
+jobs:
+    secrets:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Try to print test secret
+              run: echo " This is ${{ secrets.MY_TEST_SECRET }}"
 
-    # docker-login:
-    #     runs-on: ubuntu-latest
-    #     steps: 
-    #         - name: Docker login.
-    #           uses: docker/login-action@v3
-    #           with:
-    #             username: ${{ vars.DOCKERHUB_USER }}
-    #             password: ${{ secrets.DOCKERHUB_SECRET }}
+    docker-login:
+        runs-on: ubuntu-latest
+        steps: 
+            - name: Docker login.
+              uses: docker/login-action@v3
+              with:
+                username: ${{ vars.DOCKERHUB_USER }}
+                password: ${{ secrets.DOCKERHUB_SECRET }}
 
     #         - name: DOCKER images 
     #           run: docker ps -a
