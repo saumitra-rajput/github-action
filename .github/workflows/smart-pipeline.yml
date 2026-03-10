@@ -28,6 +28,12 @@ jobs:
         steps:
             - name: checkout code
               uses: actions/checkout@v4
+            - name: Install the python
+              uses: actions/setup-python@v5
+              with:
+                python-version: "3.13"
+            - name: Install the dependencies
+              run: pip install -r requirements.txt
             - name: Test the app.py
               run: python app.py
     summary:
