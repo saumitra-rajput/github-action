@@ -1,0 +1,29 @@
+# This file will use the matrix strategy and deploy the python code on listed versions
+# fail-fast: can be true (if error occured it will stop further processing) false (even after error code will continue) 
+
+
+name: matrix strategy
+
+on: 
+  push:
+    branches: [ main ]
+
+jobs: 
+  matrix-for-python:
+    runs-on: self-hosted
+    strategy:
+      fail-fast: false
+      matrix: 
+        python-version: [ "3.13", "3.12", "3.11", "3.10" ]
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v4
+      
+      - name: install python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: install dependencies
+        run: pip install -r requirements.txt
+      

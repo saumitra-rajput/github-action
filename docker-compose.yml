@@ -1,0 +1,5 @@
+services:
+  web:
+    image: ${DOCKERHUB_USER}/built-push:${IMAGE_TAG}
+    ports:
+    - "80:80"
