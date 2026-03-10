@@ -35,7 +35,7 @@ jobs:
             - name: Install the dependencies
               run: pip install -r requirements.txt
             - name: Check python syntax
-              run: python -v py_compile app.py
+              run: python -m py_compile app.py
     summary:
         runs-on: ubuntu-latest
         needs: [ linter,test ]
