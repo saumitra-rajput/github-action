@@ -16,7 +16,7 @@ jobs:
 
         steps:
             # step level env vars p1
-            - name: Print Message of Build
+            - name: Print Message of Build and env vars
               env:
                 VERSION: "1.1.0"
               run: |
@@ -24,6 +24,10 @@ jobs:
                 echo "Application $APP_NAME"
                 echo "Environment $ENVIRONMENT"
                 echo "Version info $VERSION"
+            - name: Print the commit SHA and actor
+              run: |
+                echo "commit ID ${{ github.SHA }}"
+                echo "Actor name is ${{ github.ref_name }}"
 
     test:
         runs-on: ubuntu-latest
