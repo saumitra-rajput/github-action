@@ -1,7 +1,7 @@
 name: Multi-job
 
 on: 
-    workflow_dispatch: [ main, dev ]
+    workflow_dispatch: 
     push: 
         branches: [ main ]
 
