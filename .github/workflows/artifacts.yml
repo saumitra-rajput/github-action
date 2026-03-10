@@ -1,0 +1,12 @@
+name: Secret-Artifcats
+
+on: 
+    push:
+        branches: [ main ]
+
+jobs:
+    secrets:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Try to print test secret
+              run: echo " This is ${{ secrets.MY_TEST_SECRET }}"
