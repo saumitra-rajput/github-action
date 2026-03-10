@@ -31,8 +31,9 @@ jobs:
 
     test:
         runs-on: ubuntu-latest
-        outputs:
-            date: ${steps.date.outputs.date} 
+        needs: build
+        # outputs:
+        #     date: ${steps.date.outputs.date} 
 
         steps:
             - name: Print Message of Test
