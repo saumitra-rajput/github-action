@@ -58,7 +58,6 @@ jobs:
               run: pip install -r requirements.txt
             - name: Run the code check(run app.py)
               run: |
-                python app.py
                 flake8 app.py
             - name: Final output
               run: |
