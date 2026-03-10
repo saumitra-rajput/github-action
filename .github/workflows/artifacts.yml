@@ -1,4 +1,4 @@
-name: Secret-Artifcats
+name: Secret-Artifacts
 
 on: 
     push:
@@ -10,7 +10,7 @@ jobs:
     #     steps:
     #         - name: Try to print test secret
     #           run: echo " This is ${{ secrets.MY_TEST_SECRET }}"
-    
+
     docker-login:
         runs-on: ubuntu-latest
         steps: 
@@ -22,5 +22,18 @@ jobs:
 
             - name: DOCKER images 
               run: docker ps -a
+
+            - name: Test report file
+              run: |
+                mkdir report
+                echo "Test 1 - $(date)" > report/test.txt
+                echo "Second line all good" >> report/test.txt
+
+            - name: Upload artifact
+              uses: actions/upload-artifact@v4
+              with:
+                name: test-report
+                path: report/test.txt
+
             
             
