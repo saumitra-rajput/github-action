@@ -29,5 +29,5 @@ def hello():
     })
 
 
-if __name__ == "__mai=n__":
+if __name__ == "__mai=ndfdfdfd__":
     app.run(host="0.0.0.0", port=80, debug=False)
