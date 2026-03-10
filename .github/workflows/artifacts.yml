@@ -41,6 +41,7 @@ jobs:
               uses: actions/download-artifact@v4
               with: 
                 name: test-report
+                path: report/test.txt
 
             - name: Print the artifact file
               run: cat test.txt
