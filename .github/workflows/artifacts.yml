@@ -58,9 +58,9 @@ jobs:
               run: pip install -r requirements.txt
             - name: Run the code check(run app.py)
               run: flake8 app.py
-            - name: Fail Pipeline if script exit with the non-zero
+            - name: Final output
               run: |
                 echo "All good, everything worked!"
-                exit 1
+                
             
             
