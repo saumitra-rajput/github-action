@@ -1,7 +1,9 @@
 name: Multi-job
 
 on: 
-    workflow_dispatch:         
+    workflow_dispatch:   
+    push:
+      branches: [ main ]      
 
 # workflow level env vars p3
 env:
@@ -42,6 +44,13 @@ jobs:
             - name: Setting the output
               id: batman
               run: echo "date=$(date)"  >> $GITHUB_OUTPUT
+            - name: Step with the continue-on-error
+              continue-on-error: true
+              run: |
+                echo: "This step will fail but the worklow continues"
+                exit 1
+            - name: Workflow continue
+              run: echo "workflow did not stop on failure, and continue-on-error"
     deploy:
         runs-on: ubuntu-latest
         needs: test
@@ -57,11 +66,5 @@ jobs:
               if: failure()
               run: echo "Previous step failed, so this step is running"
 
-            - name: Step with the continue-on-error
-              continue-on-error: true
-              run: |
-                echo: "This step will fail but the worklow continues"
-                exit 1
-            - name: Workflow continue
-              run: echo "workflow did not stop on failure, and continue-on-error"
+
 
