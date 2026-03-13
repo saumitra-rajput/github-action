@@ -26,7 +26,7 @@ jobs:
 
             - name: run custom composte action
               id: test-greet
-              uses: ./.github/actions/greeting/composite-greet.yml
+              uses: ./.github/actions/greeting
               with:
                 name: "Saumitra"
                 language: "english"
