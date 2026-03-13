@@ -6,6 +6,10 @@
 # It lets you combine several shell steps (bash, PowerShell, etc.) into one action 
 # that can be reused across workflows.
 
+# structure
+# .github/actions/greeting/composite-actionfile.yml
+
+
 name: Setup and Greet
 description: "Print the greeting and system info"
 
@@ -47,3 +51,4 @@ runs:
           shell: bash
           run: |
             echo "greetid=true" >> $GITHUB_OUTPUT
+            
