@@ -19,7 +19,7 @@ inputs:
         required: true        
     
     language:
-        description: "Language of ${{ inputs.name }}" 
+        description: "Greeting language" 
         required: false
         default: english
 
