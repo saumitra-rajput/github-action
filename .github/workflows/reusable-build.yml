@@ -1,4 +1,5 @@
 # This file demonstrate the examples of resuable workflow
+# To use this script you have to define the app_name and environment in the call script.
 
 name: reusable-build
 
