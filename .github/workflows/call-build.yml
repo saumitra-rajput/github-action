@@ -1,0 +1,16 @@
+# This file call the workflow we build earlier : reusable-build
+
+name: call-build
+
+on: 
+    push:
+        branches: [ main ]
+
+jobs:
+    calling-build:
+        uses: ./.github/workflows/resuable-build.yml
+        with:
+            app_name: "JARVIS"
+            environment: "Production"
+        secrets:
+            docker_token: ${{ secrets.DOCKER_TOKEN}}
