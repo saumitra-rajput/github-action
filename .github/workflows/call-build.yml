@@ -8,7 +8,7 @@ on:
 
 jobs:
     calling-build:
-        uses: ./.github/workflows/resuable-build.yml
+        uses: ./.github/workflows/reusable-build.yml
         with:
             app_name: "JARVIS"
             environment: "Production"

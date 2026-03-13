@@ -1,6 +1,6 @@
 # This file demonstrate the examples of resuable workflow
 
-name: resuable-build
+name: reusable-build
 
 on : 
     workflow_call:
