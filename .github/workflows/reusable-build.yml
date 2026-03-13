@@ -1,1 +1,37 @@
-# need to update
+# This file demonstrate the examples of resuable workflow
+
+name: resuable-build
+
+on : 
+    workflow_call:
+        inputs:
+            app_name: 
+                description: "Application Name"
+                required: true
+                type: string
+            environment:
+                description: "Deployment Environment"
+                required: true
+                default: "staging"
+                type: string
+        secrets:
+            docker_token:
+                required: true
+    
+jobs: 
+    reusable:
+        runs-on: ubuntu-latest
+        steps: 
+            - name: checkout the code
+              uses: actions/checkout@v4
+            
+            - name: Print Message
+              run: echo "Building ${{ inputs.app_name }} for ${{ inputs.environment }} environment"
+
+            - name: Print Docker message
+              run: |
+                if [ -n "${{ secrets.docker_token}}" ]
+                then
+                    echo "Docker token is set: true"
+                else:
+                    echo "Docker Token is set: false"
