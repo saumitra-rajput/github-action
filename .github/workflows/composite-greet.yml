@@ -1,0 +1,49 @@
+# This file define the structure and usage of the GitHub Composite Actions
+
+# A Composite Action in GitHub Actions is a custom
+# bundles multiple workflow steps into a single reusable action.
+
+# It lets you combine several shell steps (bash, PowerShell, etc.) into one action 
+# that can be reused across workflows.
+
+name: Setup and Greet
+description: "Print the greeting and system info"
+
+inputs:
+    name:
+        description: "Name of the person"
+        required: true        
+    
+    language:
+        description: "Language of ${{ inputs.name }}" 
+        required: false
+        default: english
+
+outputs:
+    greetid:
+        description: "Greeting completed."
+        value: ${{ steps.new-output.outputs.greetid }}
+
+runs:
+    using: "composite"
+    steps:
+
+        - name: Print Greeting
+          shell: bash
+          run: |
+            echo "Hello ${{ inputs.name }}"
+            echo "Language of ${{ inputs.name }} is ${{ inputs.language }}"
+
+        - name: Print System info
+          shell: bash
+          run: |
+            date
+            echo "OS is: $OSTYPE"
+            uname -a
+            hostname
+            
+        - name: Set output
+          id: new-output
+          shell: bash
+          run: |
+            echo "greetid=true" >> $GITHUB_OUTPUT
