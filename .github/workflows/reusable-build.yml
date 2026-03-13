@@ -30,8 +30,9 @@ jobs:
 
             - name: Print Docker message
               run: |
-                if [ -n "${{ secrets.docker_token}}" ];
+                if [ -n "${{ secrets.docker_token }}" ]
                 then
                     echo "Docker token is set: true"
                 else
                     echo "Docker Token is set: false"
+                fi
