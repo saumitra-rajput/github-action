@@ -1,0 +1,35 @@
+# This file call the workflow we build earlier : reusable-build
+
+name: call-build
+
+on: 
+    push:
+        branches: [ main ]
+
+jobs:
+    calling-build:
+        uses: ./.github/workflows/reusable-build.yml
+        with:
+            app_name: "JARVIS"
+            environment: "Production"
+        secrets:
+            docker_token: ${{ secrets.DOCKER_TOKEN}}
+
+
+# We will use this file to call the composite action below
+
+    composite-action:
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout repo
+              uses: actions/checkout@v4
+
+            - name: run custom composte action
+              id: test-greet
+              uses: ./.github/actions/greeting
+              with:
+                name: "Saumitra"
+                language: "english"
+
+            - name: Print output
+              run: echo "Greeting status- ${{ steps.test-greet.outputs.greetid }}"

@@ -1,0 +1,40 @@
+# This file will copy the code in runner.
+# Run the dockerfile (context .)
+# Login into the DockerHub using env variables and secrets
+# Push the build image to the Docker hub with the tag define below
+
+name: Docker build and Push
+
+on: 
+    workflow_dispatch:
+    push: 
+        branches: [ main ]
+
+jobs:
+    docker-build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: code checkout
+              uses: actions/checkout@v4
+            
+            - name: GitHub login
+              uses: docker/login-action@v3
+              with:
+                username: ${{ vars.DOCKERHUB_USER }}
+                password: ${{ secrets.DOCKERHUB_SECRET }}
+            
+            - name: build and push to Docker Hub
+              uses: docker/build-push-action@v6
+              with:
+                context: .
+                push: true
+                tags: |
+                  ${{ vars.DOCKERHUB_USER }}/repo:${{ github.sha }}
+                # tags: |
+                #   ${{ vars.DOCKERHUB_USER }}/test:${{ github.ref_name }}
+                #   ${{ vars.DOCKERHUB_USER }}/repo:${{ github.sha }}
+                #   ${{ vars.DOCKERHUB_USER }}/action:v1.0
+            - name: All goood
+              run: echo "Everthing worked!"
+
+

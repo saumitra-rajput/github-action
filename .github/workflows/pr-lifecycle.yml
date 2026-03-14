@@ -1,0 +1,29 @@
+# workflow to track the pull requests
+
+name: PR lifecycle
+
+on: 
+    pull_request:
+        types:
+            - opened
+            - synchronize
+            - reopened
+            - closed
+
+jobs:
+    pr-details:
+        runs-on: ubunut-latest
+        steps:
+            - name: Print which event type fired
+              run: echo "${{ github.event.action }}"
+
+            - name: print the PR title
+              run: echo "${{ github.event.pull_request.title }}"
+
+            - name: print the PR author
+              run: echo "${{ github.event.pull_request.user.login }}"
+
+            - name: print the source branch and target branch
+              run: |
+                echo "Source Branch is ${{ github.event.pull_request.head.ref }}"
+                echo "Target Branch is ${{ github.event.pull_request.base.ref }}"

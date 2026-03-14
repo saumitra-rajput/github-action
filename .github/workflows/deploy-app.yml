@@ -1,0 +1,39 @@
+name: Deploy app on self-hosted runner
+
+on: 
+    workflow_dispatch:
+    workflow_run:
+        workflows: [ "Docker Build and Push" ] # Name of the upstream workflow(Deploy will only work after the DockerBnP is completed)    
+        types: [completed]
+        branches:
+            -  main
+
+jobs:    
+    deploy:
+        # Added env DOCKERHUB_USER here because it was define in docker-compose.yml file 
+        env:
+            DOCKERHUB_USER: ${{ vars.DOCKERHUB_USER }}
+            IMAGE_TAG: ${{ github.sha }} # added docker tag in docker-compose file to pick specifc image. hence defined here
+
+        runs-on: self-hosted
+        steps:
+            - name: checkout code
+              uses: actions/checkout@v4
+# You have to make sure your Runner has docker.io and docker-compose installed with the correct permissions            
+                # sudo apt update
+                # sudo apt install -y docker.io docker-compose-plugin
+                # sudo systemctl enable docker
+                # sudo systemctl start docker
+                # sudo usermod -aG docker $USER   
+            
+
+            - name: login into the Docker Hub
+              uses: docker/login-action@v3
+              with:
+                username: ${{ vars.DOCKERHUB_USER }}
+                password: ${{ secrets.DOCKERHUB_SECRET }}
+            
+            - name: deploy with docker compose 
+              # Added force recreate to ensure every time new container is created.
+              run: docker-compose down && docker-compose up -d --build 
+              

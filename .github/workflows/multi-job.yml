@@ -1,0 +1,70 @@
+name: Multi-job
+
+on: 
+    workflow_dispatch:   
+    push:
+      branches: [ main ]      
+
+# workflow level env vars p3
+env:
+    APP_NAME: myapp
+
+jobs:
+    build:
+        if: github.ref == 'refs/heads/main'
+        runs-on: ubuntu-latest
+        # job level env vars p2
+        env: 
+            ENVIRONMENT: staging
+
+        steps:
+            # step level env vars p1
+            - name: Print Message of Build and env vars
+              env:
+                VERSION: "1.1.0"
+              run: |
+                echo "Building the APP"
+                echo "Application $APP_NAME"
+                echo "Environment $ENVIRONMENT"
+                echo "Version info $VERSION"
+            - name: Print the commit SHA and actor
+              run: |
+                echo "commit ID ${{ github.SHA }}"
+                echo "Actor name is ${{ github.ref_name }}"
+
+    test:
+        runs-on: ubuntu-latest
+        needs: build
+        outputs:
+            date: ${{ steps.batman.outputs.date }} 
+
+        steps:
+            - name: Print Message of Test
+              run: echo "Running the TEST"
+            - name: Setting the output
+              id: batman
+              run: echo "date=$(date)"  >> $GITHUB_OUTPUT
+            - name: Step with the continue-on-error
+              continue-on-error: true
+              run: |
+                echo: "This step will fail but the worklow continues"
+                exit 1
+            - name: Workflow continue
+              run: echo "workflow did not stop on failure, and continue-on-error"
+    deploy:
+        runs-on: ubuntu-latest
+        needs: test
+        steps:
+            - name: Print Message of Deployment
+              run: echo " Deploying"
+            - name: Get the output from test job and print here
+              run: echo "Output from test ${{ needs.test.outputs.date }}"
+            - name: Manual fail
+              id: fail_step
+              run: exit 1
+            - name: Run when previous step fails
+              if: failure()
+              run: echo "Previous step failed, so this step is running"
+
+
+

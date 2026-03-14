@@ -1,0 +1,18 @@
+# This file will run every day at midnight (00:00)
+
+name: cron
+
+on: 
+    push:
+        branches: [ main ]
+    workflow_dispatch:
+    schedule:
+        # - cron: "* * * * *" # for Testing purpose
+        - cron: "0 0 * * *"
+
+jobs:
+    run-job:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Print message
+              run: echo "Workflow running at midnight UTC"

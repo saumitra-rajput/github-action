@@ -1,0 +1,46 @@
+# Triggers on push to any branch
+# Has a `lint` job and a `test` job running in parallel For Python code saved in app.py
+# Has a `summary` job that runs after both, prints whether it's a `main` branch push or a feature branch push, and prints the commit message
+
+name: Details
+
+on: 
+    push:
+        # Trigger on push on any branch
+        branches: [ '**' ]
+
+jobs:
+    linter:
+        runs-on: ubuntu-latest
+        steps:
+            - name: code checkout
+              uses: actions/checkout@v4
+            - name: Install the python
+              uses: actions/setup-python@v5
+              with:
+                python-version: "3.13"
+            - name: Install the dependencies
+              run: pip install -r requirements.txt
+            - name: Check the Code quality Python lint
+              run: flake8 app.py
+    test:
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout code
+              uses: actions/checkout@v4
+            - name: Install the python
+              uses: actions/setup-python@v5
+              with:
+                python-version: "3.13"
+            - name: Install the dependencies
+              run: pip install -r requirements.txt
+            - name: Check python syntax
+              run: python -m py_compile app.py
+    summary:
+        runs-on: ubuntu-latest
+        needs: [ linter,test ]
+        steps:
+            - name: Print the Branch actor
+              run: echo "Branch actor is ${{ github.ref_name }}"
+            - name: Print the commit SHA ID
+              run: echo "SHA ID is ${{ github.SHA }}"
