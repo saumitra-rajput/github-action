@@ -12,7 +12,7 @@ on:
 
 jobs:
     pr-details:
-        runs-on: ubunut-latest
+        runs-on: ubuntu-latest
         steps:
             - name: Print which event type fired
               run: echo "${{ github.event.action }}"
