@@ -13,17 +13,16 @@ jobs:
     pr-details:
         runs-on: ubuntu-latest
         steps:
-            - name: Print which event type fired
-              run: echo "${{ github.event.action }}"
-
-            - name: print the PR title
-              run: echo "${{ github.event.pull_request.title }}"
-
-            - name: print the PR author
-              run: echo "${{ github.event.pull_request.user.login }}"
-
-            - name: print the source branch and target branch
+            - name: PR details
               run: |
+                echo " Print which event type fired ${{ github.event.action }}"
+                echo " print the PR title ${{ github.event.pull_request.title }}"
+                echo " print the PR author ${{ github.event.pull_request.user.login }}"
                 echo "Source Branch is ${{ github.event.pull_request.head.ref }}"
                 echo "Target Branch is ${{ github.event.pull_request.base.ref }}"
 
+            - name: Run only when PR is merged
+              if: github.event.pull_request.merged == true
+              run: |
+                echo "The Pull Request was merged successfully."
+                echo "Merged PR Title: ${{ github.event.pull_request.title }}"
