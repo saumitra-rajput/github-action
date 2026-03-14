@@ -26,3 +26,4 @@ jobs:
               run: |
                 echo "The Pull Request was merged successfully."
                 echo "Merged PR Title: ${{ github.event.pull_request.title }}"
+                
