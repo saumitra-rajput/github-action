@@ -1,1 +1,14 @@
+Create .github/workflows/health-check.yml:
 
+Trigger: schedule with cron '0 */12 * * *' (every 12 hours) + workflow_dispatch for manual testing
+Steps:
+Pull your latest Docker image
+Run the container in detached mode
+Wait 5 seconds, then curl the health endpoint
+Print pass/fail based on the response
+Stop and remove the container
+Add a step that creates a summary using $GITHUB_STEP_SUMMARY:
+echo "## Health Check Report" >> $GITHUB_STEP_SUMMARY
+echo "- Image: myapp:latest" >> $GITHUB_STEP_SUMMARY
+echo "- Status: PASSED" >> $GITHUB_STEP_SUMMARY
+echo "- Time: $(date)" >> $GITHUB_STEP_SUMMARY
