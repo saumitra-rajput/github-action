@@ -48,6 +48,11 @@ jobs:
                 echo "We can print the branch name in two ways"
                 echo "By giving the full path is-  ${{ github.event.pull_request.head.ref }}"
                 echo "Second method for branch name is-  ${{ github.head_ref }}"
+                
+                # Adding for pr-cycle branch name for testing purpose
+                # Add if compare the base or target branch only then is working 
                 echo "${{ github.event.pull_request.base.ref }}" | grep -E '^(feature|docs|fix|pr-cycle)' 
-            # Adding for pr-cycle branch name for testing purpose
-
+                
+                # For main branch is getting fail below if for main 
+                # later will comment it 
+                echo "${{ github.head_ref }}" | grep -E '^(feature|docs|fix|pr-cycle)'
