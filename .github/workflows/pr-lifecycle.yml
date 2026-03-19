@@ -1,29 +1,53 @@
 # workflow to track the pull requests
 
+# name: PR lifecycle
+
+# on: 
+#     pull_request:
+#         types:
+#             - opened
+#             - synchronize
+#             - reopened
+#             - closed
+# jobs:
+#     pr-details:
+#         runs-on: ubuntu-latest
+#         steps:
+#             - name: PR details
+#               run: |
+#                 echo " Print which event type fired ${{ github.event.action }}"
+#                 echo " print the PR title ${{ github.event.pull_request.title }}"
+#                 echo " print the PR author ${{ github.event.pull_request.user.login }}"
+#                 echo "Source Branch is ${{ github.event.pull_request.head.ref }}"
+#                 echo "Target Branch is ${{ github.event.pull_request.base.ref }}"
+
+#             - name: Run only when PR is merged
+#               if: github.event.pull_request.merged == true
+#               run: |
+#                 echo "The Pull Request was merged successfully."
+#                 echo "Merged PR Title: ${{ github.event.pull_request.title }}"
+                
+# rewriting for revision
+
 name: PR lifecycle
 
-on: 
+on:
     pull_request:
         types:
             - opened
-            - synchronize
-            - reopened
             - closed
+            - reopened
+            - synchronized
+
 jobs:
     pr-details:
         runs-on: ubuntu-latest
         steps:
-            - name: PR details
+            - name: Display the PR Details
               run: |
-                echo " Print which event type fired ${{ github.event.action }}"
-                echo " print the PR title ${{ github.event.pull_request.title }}"
-                echo " print the PR author ${{ github.event.pull_request.user.login }}"
-                echo "Source Branch is ${{ github.event.pull_request.head.ref }}"
-                echo "Target Branch is ${{ github.event.pull_request.base.ref }}"
+                echo "Event which has triggered the workflow- ${{ github.event }}"
+                echo "PR title is - ${{ github.event.pull_request.title }}"
+                echo "PR author is - ${{ github.event.pull_request.author }}"
+                echo "Source branch is - ${{ github.event.pull_request.head.ref }}"
+                echo "Target branch is - ${{ github.event.pull_request.base.ref }}"
 
-            - name: Run only when PR is merged
-              if: github.event.pull_request.merged == true
-              run: |
-                echo "The Pull Request was merged successfully."
-                echo "Merged PR Title: ${{ github.event.pull_request.title }}"
-                
