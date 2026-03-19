@@ -23,7 +23,7 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: checkout the code
-              uses: checkout/action@v4
+              uses: actions/checkout@v4
 
             - name: Checking the file size
               run: |
