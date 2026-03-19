@@ -1,0 +1,36 @@
+# This file will follow below steps:
+# 1. Add a `schedule` trigger with cron: `'30 2 * * 1'` (every Monday at 2:30 AM UTC)
+# 2. Add **another** cron entry: `'0 */6 * * *'` (every 6 hours)
+# 3. In the job, print which schedule triggered using `${{ github.event.schedule }}`
+# 4. Add a step that acts as a **health check** — curl a URL and check the response code
+
+
+name: Scheduled Tasks
+
+on:
+  schedule:
+    - cron: '30 2 * * 1'      # Every Monday at 2:30 AM UTC
+    - cron: '0 */6 * * *'     # Every 6 hours
+  workflow_dispatch:          # Allows manual testing
+
+jobs:
+  scheduled-job:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Show which schedule triggered
+        run: echo "Triggered by cron- ${{ github.event.schedule }}"
+
+      - name: Health Check
+        run: |
+          URL="https://google.com"
+
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" $URL)
+          echo "HTTP Response Code: $STATUS"
+
+          if [ "$STATUS" -eq 200 ]; then
+            echo "Health check passed"
+          else
+            echo "Health check failed"
+            exit 1
+          fi
