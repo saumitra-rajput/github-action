@@ -12,4 +12,30 @@
 # Warn (but doesn't fail) if the PR description is empty
 
 
+name: PR-check
 
+on: 
+    pull_request:
+        branches: [ pr-cycle ]
+
+jobs:
+    PR-check:
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout the code
+              uses: checkout/action@v4
+
+            - name: Checking the file size
+              run: |
+                echo "Running the file size check"
+
+                for file in $(find . -type f);
+                do
+                  size=$(du -k "$file" | cut -f1)
+                  if [ $size -gt 1024 ];
+                  then 
+                    echo "File is larger than 1 MB"
+                    exit 1
+                  fi
+                done
+                echo "All files are under 1 MB"
