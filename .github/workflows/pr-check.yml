@@ -39,3 +39,12 @@ jobs:
                   fi
                 done
                 echo "All files are under 1 MB"
+
+    branch-name-check:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Get the Branch name
+              run: |
+                echo "branch name is-  ${{ github.head.ref }}"
+                echo "${{ github.head.ref }}" | grep -E '^(feature|docs|fix)'
+                
