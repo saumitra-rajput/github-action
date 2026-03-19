@@ -1,5 +1,5 @@
 # workflow to track the pull requests
-
+# this file will work on the Pull request of any mentioned state will show the output with the PR Details.
 # name: PR lifecycle
 
 # on: 
