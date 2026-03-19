@@ -65,6 +65,10 @@ jobs:
                 echo "PR description"
                 echo "${{ github.event.pull_request.body }}"
 
-                BODY="${{ github.event.pull_request.body }}""
-                # -z checks if empty
-                [ -z "$BODY" ] && echo "Warning: PR description is empty"
+                if [-z "${{ github.event.pull_request.body }}" ];
+                then
+                  # -z checks if empty
+                  echo "Warning: PR description is empty"
+                else:
+                    echo "PR description exists."
+                fi
