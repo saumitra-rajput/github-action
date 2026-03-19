@@ -47,7 +47,7 @@ jobs:
               run: |
                 echo "Event which has triggered the workflow- ${{ github.event }}"
                 echo "PR title is - ${{ github.event.pull_request.title }}"
-                echo "PR author is - ${{ github.event.pull_request.author }}"
+                echo "PR author is - ${{ github.event.pull_request.user.login }}"
                 echo "Source branch is - ${{ github.event.pull_request.head.ref }}"
                 echo "Target branch is - ${{ github.event.pull_request.base.ref }}"
 
