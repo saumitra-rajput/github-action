@@ -1,0 +1,15 @@
+# This is a PR check file.
+# This file will trigger on Pull request to pr-cycle branch for learning purpose
+# Perform the file size check and display the file size || get fail if file size is greater than 1 MB
+
+# Later will add few more options like:
+# Read the branch name from
+# Fail if it doesn't follow the pattern feature, fix or docs
+
+# One for job
+# This job will check the PR body
+# Read the PR body 
+# Warn (but doesn't fail) if the PR description is empty
+
+
+
