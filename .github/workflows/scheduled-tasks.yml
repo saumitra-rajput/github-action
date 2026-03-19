@@ -23,7 +23,7 @@ jobs:
 
       - name: Health Check
         run: |
-          URL="https://google.com"
+          URL="https://www.google.com"
 
           STATUS=$(curl -s -o /dev/null -w "%{http_code}" $URL)
           echo "HTTP Response Code: $STATUS"
