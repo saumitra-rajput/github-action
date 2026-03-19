@@ -48,6 +48,6 @@ jobs:
                 echo "We can print the branch name in two ways"
                 echo "By giving the full path is-  ${{ github.event.pull_request.head.ref }}"
                 echo "Second method for branch name is-  ${{ github.head_ref }}"
-                echo "${{ github.head_ref }}" | grep -E '^(feature|docs|fix|pr-cycle)' 
+                echo "${{ github.event.pull_request.base.ref }}" | grep -E '^(feature|docs|fix|pr-cycle)' 
             # Adding for pr-cycle branch name for testing purpose
 
