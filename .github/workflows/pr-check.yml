@@ -46,5 +46,6 @@ jobs:
             - name: Get the Branch name
               run: |
                 echo "branch name is-  ${{ github.head.ref }}"
-                echo "${{ github.head.ref }}" | grep -E '^(feature|docs|fix)'
-                
+                echo "${{ github.head.ref }}" | grep -E '^(feature|docs|fix|pr-cycle)' 
+            # Adding for pr-cycle branch name for testing purpose
+
