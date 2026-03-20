@@ -10,7 +10,7 @@ on:
         
         paths:
             - 'src/**'
-            - 'app.py/**'
+            - 'app.py'
         # WE CAN USE BOTH PATHS AND PATHS-IGNORE TOGETHER AT THE SAME TIME
         # paths-ignore: 
         #     - '*.md'
