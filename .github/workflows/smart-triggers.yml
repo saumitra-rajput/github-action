@@ -23,4 +23,5 @@ jobs:
         steps:
             - name: Checkout the code
               uses: actions/checkout@v4
+            - name: Running the Smart-trigger
               run: echo "Trigger for app/src changes and not docs-only"
