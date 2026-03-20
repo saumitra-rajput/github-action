@@ -1,5 +1,5 @@
-Task 4: Path & Branch Filters
-This file will trigger on push when (files are changed in src/ for app/)
+# Task 4: Path & Branch Filters
+# This file will trigger on push when (files are changed in src/ for app/)
 
 name: Smart-Triggers
 
