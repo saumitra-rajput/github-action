@@ -1,7 +1,6 @@
 # This file is example of workflow_run
 # This file will only execute once the Docker Build and Push is completed
 
-
 name: Deploy app on self-hosted runner
 
 on: 
