@@ -1,2 +1,26 @@
 Task 4: Path & Branch Filters
-Create .github/workflows/smart-triggers.yml:
+This file will trigger on push when (files are changed in src/ for app/)
+
+name: Smart-Triggers
+
+on:
+    push:
+        branches: 
+            - main
+        
+        paths:
+            - 'src/**'
+            - 'app/**'
+        # WE CAN USE BOTH PATHS AND PATHS-IGNORE TOGETHER AT THE SAME TIME
+        # paths-ignore: 
+        #     - '*.md'
+        #     - 'docs/**'
+
+
+jobs:
+    file-check:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout the code
+              uses: actions/checkout@v4
+              run: echo "Trigger for app/src changes and not docs-only"
